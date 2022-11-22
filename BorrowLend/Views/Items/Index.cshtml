@@ -1,0 +1,97 @@
+﻿
+@model BorrowLend.ViewModel.ItemVM.DisplayVM
+@{
+    ViewBag.Title = "ITEM LIST";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<div class="grid">
+
+
+    <form action="/Items/Index" method="get">
+        <div class="row" style="margin-left:250px">
+            <div class="col-4">
+                @Html.LabelFor(x=>x.Filter.name)
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(x=>x.Filter.borrower)
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(x=>x.Filter.lender)
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
+        <div class="row" style="margin-left:250px">
+            <div class="col-4">
+                @Html.TextBoxFor(x=>x.Filter.name)
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(x=>x.Filter.borrower)
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(x=>x.Filter.lender)
+            </div>
+            <div class="col-2">
+                <input type="submit" value="Filter" />
+                <a href="/Items/Index">Clear</a>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+    <div class="row" style="margin-left:250px">
+        <div class="col-3">
+            <a class="left" href="/Users/Create">NEW</a>
+        </div>
+    </div>
+
+    <div class="row" style="margin-left:250px">
+
+        <div class="col-1 textColor">
+            Name
+        </div>
+
+        <div class="col-1 textColor">
+            Borrow
+        </div>
+
+        <div class="col-1 textColor">
+            Lender
+        </div>
+        <div class="col-2">
+        </div>
+    </div>
+    @foreach (var item in Model.ItemsList)
+    {
+        <div class="row" style="margin-left:250px">
+            <div class="col-1">
+                @item.Name
+            </div>
+
+            <div class="col-1">
+                @item.Borrower
+            </div>
+
+            <div class="col-1">
+                @item.Lender
+            </div>
+
+            
+
+            <div class="col-2">
+                @Html.ActionLink("Edit ", "Update", new { id=item.Id })|
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new{onclick ="return confirm('Do you realy want to delete')"})
+            </div>
+        </div>
+    }
+    <div style="margin-left:250px">
+        @{
+            Html.RenderPartial("/Views/Shared/PagerPartial.cshtml", Model.Pager);
+        }
+    </div>
+
+</div>
